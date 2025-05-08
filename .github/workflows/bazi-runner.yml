@@ -1,0 +1,37 @@
+name: Run BaZi Chart
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: 'Birth Year'
+        required: true
+      month:
+        description: 'Birth Month'
+        required: true
+      day:
+        description: 'Birth Day'
+        required: true
+      hour:
+        description: 'Birth Hour (24h format)'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install bidict lunar_python colorama
+
+      - name: Run BaZi script
+        run: |
+          python bazi.py ${{ github.event.inputs.year }} ${{ github.event.inputs.month }} ${{ github.event.inputs.day }} ${{ github.event.inputs.hour }} -n -g
