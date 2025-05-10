@@ -15,6 +15,8 @@ on:
       hour:
         description: 'Birth Hour'
         required: true
+  repository_dispatch:
+    types: [bazi_request]
 
 jobs:
   build:
@@ -34,4 +36,4 @@ jobs:
 
     - name: Run BaZi Script
       run: |
-        python bazi.py ${{ github.event.inputs.year }} ${{ github.event.inputs.month }} ${{ github.event.inputs.day }} ${{ github.event.inputs.hour }}
+        python bazi.py ${{ inputs.year }} ${{ inputs.month }} ${{ inputs.day }} ${{ inputs.hour }}
